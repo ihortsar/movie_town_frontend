@@ -1,0 +1,38 @@
+<div class="containerWithMoviesBackground">
+    <div class="shadow-container">
+        <form [formGroup]="signUpForm">
+
+            <h1>Sign up</h1>
+            <div class="input-div">
+                <input formControlName="firstName">
+                <label [class.focused]="signUpForm.get('firstName')?.value">First name</label>
+            </div>
+            <div class="input-div">
+                <input formControlName="lastName" type="text">
+                <label [class.focused]="signUpForm.get('lastName')?.value">Last name</label>
+            </div>
+            <div class="input-div">
+                <mat-form-field>
+                    <mat-label>Your birthdate</mat-label>
+                    <input formControlName="birthday" matInput [matDatepicker]="picker">
+                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            </div>
+
+
+            <div class="input-div">
+                <input formControlName="email" type="email">
+                <label [class.focused]="signUpForm.get('email')?.value">email</label>
+            </div>
+
+            <div class="input-div">
+                <input formControlName="password" type="password">
+                <label [class.focused]="signUpForm.get('password')?.value">password</label>
+            </div>
+            <button class="accept-form">Sign up</button>
+        </form>
+    </div>
+</div>
+
+

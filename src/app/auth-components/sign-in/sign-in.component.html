@@ -1,0 +1,22 @@
+<div class="containerWithMoviesBackground">
+    <div class="shadow-container">
+        <form [formGroup]="signInForm">
+
+            <h1>Einloggen</h1>
+            <div class="input-div">
+                <input formControlName="email" type="email">
+                <label [class.focused]="signInForm.get('email')?.value">email</label>
+            </div>
+
+            <div class="input-div">
+                <input formControlName="password" type="password">
+                <label [class.focused]="signInForm.get('password')?.value">password</label>
+            </div>
+            <button class="accept-form">Einloggen</button>
+            <p>Password vergessen?</p>
+            <div class="signUpDiv">
+                <p>Neu bei Movie Town?</p><a [routerLink]="['/signup']">Jetzt registrieren</a>
+            </div>
+        </form>
+    </div>
+</div>
