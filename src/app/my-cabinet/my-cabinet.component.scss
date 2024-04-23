@@ -1,0 +1,43 @@
+.container {
+    height: 100vh;
+    min-width: 100%;
+    background-color: black;
+    color: white;
+    padding-left: 60px;
+    padding-top: 105px;
+    display: flex;
+    flex-direction: column;
+}
+
+section {
+    display: flex;
+    flex-direction: column;
+    height: 25%
+}
+
+.movieBoxes {
+    display: flex;
+
+}
+
+.movieBox {
+    margin: 10px;
+    max-height: 150px;
+    width: 65px;
+
+    &:hover {
+        transition: ease-in-out 0.2s;
+        scale: 1.2;
+        z-index: 5;
+    }
+
+    img {
+        width: auto;
+        height: 100%;
+    }
+}
+
+.cowboy {
+    height: 150px;
+    width: 100px;
+}

@@ -2,16 +2,36 @@ header {
     position: absolute;
     z-index: 2000;
     display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
 
     img {
         height: 60px;
         margin-left: 10%;
         margin-top: 20px;
     }
+
+    .myCabinet {
+        display: flex;
+        align-items: center;
+        margin-right: 5%;
+
+        span {
+            color: white;
+            white-space: nowrap;
+        }
+
+        .userIcon {
+            height: 30px;
+            margin: 0 10px 0 0;
+        }
+    }
 }
+
 .container {
     height: 100vh;
-    background-image: url('../assets/img/movies_background.jpg');
+    background-image: url('../../src/assets/img/movies_background.jpg');
     display: flex;
     justify-content: center;
     align-items: center;

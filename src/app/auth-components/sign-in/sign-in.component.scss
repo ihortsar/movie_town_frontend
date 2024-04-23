@@ -1,14 +1,38 @@
 .signUpDiv {
     display: flex;
-
-
-    a {
-        text-decoration: none;
-        color: white;
-    }
 }
 
 p {
     color: #aaa;
     margin-right: 8px;
+}
+
+button {
+    color: white;
+}
+
+.instruction {
+    margin-bottom: -50px;
+    display: block;
+    width: 80%;
+}
+
+.login {
+    position: absolute;
+    top: 30px;
+    right: 2%
+}
+
+.forgotPasswordButton {
+    cursor: pointer;
+}
+
+::ng-deep .forgotPasswordForm {
+    p {
+        color: white;
+    }
+
+    input {
+        display: block !important;
+    }
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { provideNativeDateAdapter } from '@angular/material/core';
@@ -10,7 +10,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 
-import { NgFor, NgIf, NgStyle } from '@angular/common';
+import { DatePipe, NgFor, NgIf, NgStyle } from '@angular/common';
+import { User } from '../../classes/user.class';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { lastValueFrom } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 
 
@@ -18,37 +22,57 @@ import { NgFor, NgIf, NgStyle } from '@angular/common';
   selector: 'app-sign-up',
   standalone: true,
   providers: [provideNativeDateAdapter()],
-  imports: [MatSlideToggleModule, FormsModule, ReactiveFormsModule, MatDatepickerModule, MatExpansionModule, MatIconModule, MatInputModule, MatFormFieldModule],
+  imports: [NgIf, HttpClientModule, MatSlideToggleModule, FormsModule, ReactiveFormsModule, MatDatepickerModule, MatExpansionModule, MatIconModule, MatInputModule, MatFormFieldModule],
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.scss',]
 })
 export class SignUpComponent {
+  constructor(private http: HttpClient) { }
 
   /**
-* FormGroup for user signup form.
-* Contains form controls for username, first name, last name, email and password.
-*/
+  * FormGroup for user signup form.
+  * Contains form controls for username, first name, last name, email and password.
+  */
   signUpForm = new FormGroup(
     {
       firstName: new FormControl('', Validators.required),
       lastName: new FormControl('', Validators.required),
       birthday: new FormControl('', Validators.required),
       email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', Validators.required),
-
+      password1: new FormControl('', [Validators.required, Validators.minLength(8)]),
+      password2: new FormControl('', [Validators.required, Validators.minLength(8)]),
     }
   )
 
 
-  /**
-  * Retrieves user data from the signup form.
-  * @returns User data entered in the signup form
-  */
-  getUsersData() {
-    const email = this.signUpForm.get('email')?.value as string
-    const password = this.signUpForm.get('password')?.value as string
-    console.log(email, password);
 
-    return { email, password }
+  createUser() {
+    const date = this.signUpForm.get('birthday')?.value as string | undefined;
+    const birthday = date ? new DatePipe('en-US').transform(date, 'yyyy-MM-dd')?.toString() : '';
+    let user = new User({
+      email: this.signUpForm.get('email')?.value as string,
+      password1: this.signUpForm.get('password1')?.value as string,
+      password2: this.signUpForm.get('password2')?.value as string,
+      firstName: this.signUpForm.get('firstName')?.value as string,
+      lastName: this.signUpForm.get('lastName')?.value as string,
+      birthday: birthday || ''
+    })
+    this.signUp(user)
+  }
+
+
+  async signUp(body: User) {
+    let options = {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+    try {
+      let url = environment.baseUrl + '/signup/'
+      let response = await lastValueFrom(this.http.post(url, body, options))
+    } catch (er) {
+      console.log(er);
+
+    }
   }
 }

@@ -1,0 +1,38 @@
+.container {
+    height: 100vh;
+    display: flex;
+    flex-wrap: wrap;
+    background-color: black;
+    padding-top: 200px;
+    overflow-y: auto;
+}
+
+.genreSection {
+    display: flex;
+    flex-direction: column;
+    overflow-x: scroll;
+    margin-bottom: 40px;
+
+}
+
+.genreName {
+    color: white;
+    font-size: 26px;
+    display: block;
+    padding-left: 12px;
+}
+
+.movieBoxes {
+    display: flex;
+
+}
+
+.movieBox {
+    margin: 10px;
+    max-height: 300px;
+}
+
+.movieBox img {
+    width: auto;
+    height: 100%;
+}

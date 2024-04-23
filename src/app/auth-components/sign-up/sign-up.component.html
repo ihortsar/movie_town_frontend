@@ -1,6 +1,6 @@
 <div class="containerWithMoviesBackground">
     <div class="shadow-container">
-        <form [formGroup]="signUpForm">
+        <form [formGroup]="signUpForm" (submit)="createUser()">
 
             <h1>Sign up</h1>
             <div class="input-div">
@@ -27,12 +27,15 @@
             </div>
 
             <div class="input-div">
-                <input formControlName="password" type="password">
-                <label [class.focused]="signUpForm.get('password')?.value">password</label>
+                <input formControlName="password1" type="password">
+                <label [class.focused]="signUpForm.get('password1')?.value">password</label>
             </div>
-            <button class="accept-form">Sign up</button>
+
+            <div  *ngIf="(signUpForm.get('password1')?.value || '').length > 7" class="input-div">
+                <input formControlName="password2" type="password">
+                <label [class.focused]="signUpForm.get('password2')?.value">confirm password</label>
+            </div>
+            <button type="submit" class="accept-form">Sign up</button>
         </form>
     </div>
 </div>
-
-

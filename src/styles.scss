@@ -1,5 +1,6 @@
 body {
     margin: 0;
+    overflow-y: hidden;
 }
 
 label#mat-mdc-form-field-label-0 {
@@ -7,6 +8,11 @@ label#mat-mdc-form-field-label-0 {
     margin-left: -6px;
     font-weight: 400;
     color: #A1A2A2 !important
+}
+
+a {
+    text-decoration: none;
+    color: white;
 }
 
 .input-div {
@@ -22,6 +28,7 @@ label#mat-mdc-form-field-label-0 {
         background-color: #212A37;
         width: 100%;
         color: white;
+
         &:focus {
             background-color: transparent;
         }
@@ -75,6 +82,7 @@ form {
     height: 80%;
     width: 40%;
     background-color: rgba(0, 0, 0, 0.7);
+    padding: 0 30px;
 
     h1 {
         color: white;
@@ -135,4 +143,24 @@ body {
 body {
     margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #0a0a0a;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
 }

@@ -1,0 +1,18 @@
+<div class="container">
+    <section>
+        <span>Edit profile</span>
+        <img class="cowboy" src="../../assets/img/man.png">
+    </section>
+    <section>
+        <span>Your videos</span>
+    </section>
+    <section>
+        <span>Your selected movies</span>
+        <div class="movieBoxes">
+            <div class="movieBox" *ngFor="let movie of us.currentUser.selectedMovies">
+                <img *ngIf="movie && movie.poster_path !== undefined"
+                    src="https://image.tmdb.org/t/p/w500{{movie.poster_path}}">
+            </div>
+        </div>
+    </section>
+</div>

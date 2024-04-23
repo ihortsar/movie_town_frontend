@@ -1,6 +1,6 @@
 <div class="containerWithMoviesBackground">
     <div class="shadow-container">
-        <form [formGroup]="signInForm">
+        <form *ngIf="!forgotPassword" [formGroup]="signInForm" (submit)="signin()">
 
             <h1>Einloggen</h1>
             <div class="input-div">
@@ -12,11 +12,13 @@
                 <input formControlName="password" type="password">
                 <label [class.focused]="signInForm.get('password')?.value">password</label>
             </div>
-            <button class="accept-form">Einloggen</button>
-            <p>Password vergessen?</p>
+            <button type="submit" class="accept-form">Einloggen</button>
+            <a class="forgotPasswordButton" href="http://127.0.0.1:8000/password_reset/">Password vergessen?</a>
+
             <div class="signUpDiv">
                 <p>Neu bei Movie Town?</p><a [routerLink]="['/signup']">Jetzt registrieren</a>
             </div>
         </form>
+
     </div>
 </div>
