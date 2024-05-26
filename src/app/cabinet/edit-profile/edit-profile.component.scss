@@ -1,0 +1,100 @@
+.container {
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+form {
+    height: 40%;
+    min-width: 242px;
+    border: 1px solid rgb(165, 164, 164);
+    background-color: rgb(12 12 12);
+    z-index: 2000;
+
+    span {
+        color: white;
+    }
+}
+
+.info {
+    width: 100%;
+
+    .name {
+        display: flex;
+        align-items: center;
+        font-size: 18px;
+        justify-content: space-between;
+        margin-bottom: 15px;
+        position: relative;
+
+        div {
+            display: flex;
+            gap: 10px;
+        }
+    }
+
+    .changePassword {
+        color: gray;
+        font-size: 12px;
+        margin-top: 8px;
+    }
+
+}
+
+button {
+    color: white;
+}
+
+.input-div {
+    position: absolute;
+    left: 0;
+    right: 20px;
+    width: auto;
+
+}
+
+.pen {
+    height: 12px;
+}
+
+input {
+    background-color: #0C0C0C;
+    color: white;
+    padding: 0 0 0 4px;
+    font-size: 18px;
+    letter-spacing: .0178571429em;
+    border-bottom: 1px solid gray;
+    line-height: 2rem;
+    outline: none;
+    margin-bottom: 20px;
+    width: 100%;
+
+    &::placeholder {
+        font-size: 12px;
+        text-indent: 4px;
+    }
+
+
+    &:focus {
+        background-color: #0C0C0C;
+
+    }
+}
+
+.passwordDiv {
+    position: relative;
+
+    img {
+        position: absolute;
+        right: 11px;
+        top: 12px;
+        height: 12px;
+    }
+}
+
+input {
+    margin-bottom: 10px;
+}

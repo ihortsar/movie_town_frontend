@@ -1,0 +1,78 @@
+.container {
+    height: 100vh;
+    background-color: black;
+    color: white;
+    padding-top: 105px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+section {
+    display: flex;
+    flex-direction: column;
+    overflow-x: auto;
+
+    span {
+        margin-left: 60px;
+    }
+}
+
+.movieBoxes {
+    height: 100%;
+    margin-left: 60px;
+    display: flex;
+}
+
+
+.movieBox {
+    width: 65px;
+    height: 160px;
+
+    &:hover {
+        transition: ease-in-out 0.2s;
+        scale: 1.2;
+        z-index: 5;
+    }
+
+    img {
+        height: 100%;
+    }
+}
+
+.cowboy {
+    height: 150px;
+    width: 100px;
+    margin-left: 60px;
+}
+
+app-edit-profile {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.usersVideo {
+    display: flex;
+    flex-direction: column;
+    margin-right: 15px;
+    background-color: black;
+
+    &:hover {
+        transition: ease-in-out 0.2s;
+        scale: 1.2;
+        z-index: 5;
+    }
+
+    p {
+        font-size: 12px;
+        color: #bcb8b8;
+
+    }
+}
+
+.videoBox {
+    height: 120px;
+}

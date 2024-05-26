@@ -1,11 +1,21 @@
 <div class="container">
-    <div class="genreSection" *ngFor="let genre of genres">
-        <span class="genreName">{{genre.name}}</span>
-        <div class="movieBoxes">
-            <div class="movieBox" *ngFor="let movie of genre.movies">
-                <img (click)=" addOrDeleteMovieFromSelected(movie)" *ngIf="movie && movie.poster_path !== undefined"
-                    src="https://image.tmdb.org/t/p/w500{{movie.poster_path}}">
+    <input [(ngModel)]="result" (ngModelChange)="filterMovies()">
+    <div *ngIf="filteredMovies.length===0">
+        <div class="genreSection" *ngFor="let genre of genres">
+            <span class="genreName">{{genre.name}}</span>
+            <div class="movieBoxes">
+                <div class="movieBox" *ngFor="let movie of genre.movies">
+                    <img (click)="openDialog(movie)" *ngIf="movie && movie.poster_path !== undefined"
+                        src="https://image.tmdb.org/t/p/w500{{movie.poster_path}}">
+                </div>
             </div>
+        </div>
+    </div>
+
+    <div *ngIf="filteredMovies.length!==0" class="movieBoxes">
+        <div class="movieBox" *ngFor="let movie of filteredMovies">
+            <img (click)="openDialog(movie)" *ngIf="movie && movie.poster_path !== undefined"
+                src="https://image.tmdb.org/t/p/w500{{movie.poster_path}}">
         </div>
     </div>
 </div>

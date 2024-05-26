@@ -1,28 +1,39 @@
 import { NgFor, NgIf } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { lastValueFrom } from 'rxjs';
-import { environment } from '../../environments/environment';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Subscription, lastValueFrom } from 'rxjs';
 import { UserService } from '../services/user/user.service';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MovieCardComponent } from '../movie-card/movie-card.component';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [NgFor, NgIf, HttpClientModule],
+  imports: [FormsModule, NgFor, NgIf, HttpClientModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
-export class HomeComponent implements OnInit {
-  genres: any[] = []
+export class HomeComponent implements OnInit, OnDestroy {
+  result = ''
+  genres: any = []
   moviesOfGenrex: any[] = [];
   url = `https://api.themoviedb.org/3/discover/movie`;
+  subscription: Subscription = new Subscription();
+  filteredMovies: any[] = []
 
-  constructor(public http: HttpClient, private us: UserService) { }
+  constructor(public http: HttpClient, private us: UserService, public dialog: MatDialog) { }
+
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe()
+  }
+
 
   async ngOnInit() {
     await this.fetchAllGenres()
-    this.us.currentUserSubject.subscribe(data => {
-      this.us.setCurrentUser(data)
+    this.subscription = this.us.currentUserSubject.subscribe(data => {
+      this.us.updateCurrentUser(data)
     })
   };
 
@@ -59,19 +70,37 @@ export class HomeComponent implements OnInit {
   };
 
 
-  addOrDeleteMovieFromSelected(movie: {},) {
+  openDialog(movie: {}) {
+    const dialogRef = this.dialog.open(MovieCardComponent, {
+      width: '40%',
+      height: '100%',
+      data: movie
+    });
 
-    /*let body = {
-      movie: movie,
-      user_id: this.us.currentUser.userId
-    }
-    let url = environment.baseUrl + '/movie_select/'
-    let response = lastValueFrom(this.http.post(url, body)) */
-    this.us.currentUser.selectedMovies = this.us.currentUser.selectedMovies || []
-    this.us.currentUser.selectedMovies.push(movie)
-    this.us.currentUserSubject.next(this.us.currentUser)
-    console.log(this.us.currentUser);
-
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
   }
+
+  filterMovies() {
+    this.filteredMovies = [];
+  
+    if (this.result.length > 2) {
+      const searchTerm = this.result.toLowerCase();
+      const addedMovieIds = new Set<number>();
+  
+      this.genres.forEach((genre: any) => {
+        genre.movies.forEach((movie: any) => {
+          if (movie.title.toLowerCase().includes(searchTerm) && !addedMovieIds.has(movie.id)) {
+            this.filteredMovies.push(movie);
+            addedMovieIds.add(movie.id);
+          }
+        });
+      });
+    }
+  }
+  
+
+
 
 }

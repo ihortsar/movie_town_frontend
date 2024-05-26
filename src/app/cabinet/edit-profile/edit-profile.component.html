@@ -1,0 +1,44 @@
+<div class="container">
+    <form id="formProfile" *ngIf="!editPassword" [formGroup]="editForm" (submit)="saveEditedUser()">
+        <h1>Profile</h1>
+        <div class="info">
+            <div class="name">
+                <div>
+                    <span>{{us.currentUser.first_name}}</span>
+                    <span>{{us.currentUser.last_name}}</span>
+                </div>
+                <div *ngIf="editName" class="input-div">
+                    <input [value]="editForm.get('name').value" formControlName="name">
+                </div>
+                <img (click)="toggleEditName()" class="pen" src="../../../assets/img/edit.png">
+            </div>
+            <div class="name">
+                <span>{{us.currentUser.email}}</span>
+                <img (click)="toggleEditEmail()" class="pen" src="../../../assets/img/edit.png">
+                <div *ngIf="editEmail" class="input-div">
+                    <input [value]="editForm.get('email').value" formControlName="email">
+                </div>
+            </div>
+
+            <span class="changePassword" (click)="toggleEditPassword()">Change password</span>
+        </div>
+
+        <button type="submit" class="accept-form">Save</button>
+    </form>
+
+    <form id="formPasswords" [formGroup]="formPassword" *ngIf="editPassword" (submit)="saveEditedUser()">
+        <h1>Change password</h1>
+        <div class="info">
+            <div class="passwordDiv">
+                <input placeholder="old password" formControlName="oldPassword" [type]="showOld ? 'text' : 'password'">
+                <img (click)="toggleShowOld()" src="../../../assets/img/eye.png">
+            </div>
+            <div class="passwordDiv">
+                <input placeholder="new password" formControlName="newPassword" [type]="showNew ? 'text' : 'password'"
+                    type="password">
+                <img (click)="toggleShowNew()" src="../../../assets/img/eye.png">
+            </div>
+        </div>
+        <button type="submit" class="accept-form">Save password</button>
+    </form>
+</div>

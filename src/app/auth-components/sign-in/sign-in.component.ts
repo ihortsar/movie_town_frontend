@@ -1,8 +1,8 @@
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { Component, NgModule, OnInit } from '@angular/core';
+import { Component, NgModule, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators, ReactiveFormsModule, NgModel, NgForm } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import { Observable, lastValueFrom } from 'rxjs';
+import { Observable, Subscription, lastValueFrom } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -16,52 +16,40 @@ import { UserService } from '../../services/user/user.service';
   templateUrl: './sign-in.component.html',
   styleUrl: './sign-in.component.scss'
 })
-export class SignInComponent implements OnInit {
-  forgotPasswordForm: SafeHtml | null = null;
+export class SignInComponent implements OnInit, OnDestroy {
   forgotPassword = false
   email: string = '';
   password: string = '';
-  uid: string = '';
   token: string = '';
-  resetLink: string = '';
-  emailSent = false
+  userSubscription = new Subscription()
+  usersVideosSubscription = new Subscription()
   constructor(private http: HttpClient, private sanitizer: DomSanitizer, public us: UserService) {
   }
-  ngOnInit(): void {
-    this.us.currentUserSubject.subscribe(data => {
-      localStorage.setItem('currentUser', JSON.stringify(data))
-    })
-  }
 
+  ngOnInit(): void {
+    this.userSubscription = this.us.currentUserSubject.subscribe(data => {
+      if (data) {
+        this.us.updateCurrentUser(data)
+      }
+    });
+    this.usersVideosSubscription = this.us.usersVideosSubject.subscribe(data => {
+      if (data) {
+        this.us.updateUsersVideos(data)
+      }
+    });
+  }
 
 
   /**
-  * FormGroup for user signup form.
-  * Contains form controls for username, first name, last name, email and password.
-  */
+   * FormGroup for user signup form.
+   * Contains form controls for username, first name, last name, email and password.
+   */
   signInForm = new FormGroup(
     {
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', Validators.required),
     }
   )
-
-
-  /**
- * Retrieves current users data from the signup form.
- * @returns User data entered in the signup form
- */
-  async getCurrentUser(body: any) {
-    let url = environment.baseUrl + '/current_user/'
-    let response = await lastValueFrom(this.http.post(url, body))
-    let user =
-    {
-      userId: body.user_id,
-      userData: response
-    }
-    this.us.currentUserSubject.next(user)
-
-  }
 
 
   /**
@@ -83,9 +71,10 @@ export class SignInComponent implements OnInit {
       let response = await lastValueFrom(this.http.post(url, body))
       let token = (response as any).token;
       localStorage.setItem('token', token);
-      console.log('response:', response);
-      await this.getCurrentUser(response)
-
+      let user = (response as any).user;
+      this.us.currentUserSubject.next(user);
+      let usersVideos = (response as any).users_videos
+      this.us.usersVideosSubject.next(usersVideos)
     } catch (er) {
       console.log('error occured:', er);
 
@@ -101,15 +90,16 @@ export class SignInComponent implements OnInit {
       }, error => {
         console.error(error);
       });
-
   }
 
 
   toggleForgotPassword() {
     this.forgotPassword = !this.forgotPassword
-
   }
 
 
-
+  ngOnDestroy(): void {
+    this.userSubscription.unsubscribe()
+    this.usersVideosSubscription.unsubscribe()
+  }
 }

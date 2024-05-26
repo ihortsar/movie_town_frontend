@@ -1,0 +1,28 @@
+<div class="container">
+    <section>
+        <span>Edit profile</span>
+        <img (click)="openEditProfile()" class="cowboy" src="../../assets/img/man.png">
+    </section>
+    <section >
+        <span>Your videos</span>
+        <div class="movieBoxes">
+            <div  *ngFor="let video of us.usersVideos" class="usersVideo">
+                <p>{{video.title}}</p>
+                <video class="videoBox" controls>
+                    <source src="{{ environment.baseUrl + '/' + video.video_file }}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        </div>
+    </section>
+    <section>
+        <span>Your selected movies</span>
+        <div class="movieBoxes" *ngIf="us.currentUser.selected_movies">
+            <div class="movieBox" *ngFor="let movie of us.currentUser.selected_movies">
+                <img (click)="openDialog(movie)" *ngIf="movie && movie.poster_path !== undefined"
+                    src="https://image.tmdb.org/t/p/w500{{movie.poster_path}}">
+            </div>
+        </div>
+    </section>
+    <app-edit-profile (closeEdit)="closeEditProfile($event)" *ngIf="editProfile"></app-edit-profile>
+</div>

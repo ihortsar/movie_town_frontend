@@ -1,0 +1,17 @@
+<div class="wrapper">
+    <img class="poster" src="https://image.tmdb.org/t/p/w500{{movie.poster_path}}">
+    <h1>{{movie.title}}</h1>
+    <section>
+        <p>Plot:</p>
+        <span>{{movie.overview}}</span>
+    </section>
+    <section>
+        <p>Release date:</p>
+        <span>{{movie.release_date}}</span>
+    </section>
+    <div class="favoriteDiv">
+        <img (click)="addOrDeleteMovieFromSelected(movie)" *ngIf="!addedToFavorites"
+            src="../../assets/img/favorite.png">
+        <img (click)="addOrDeleteMovieFromSelected(movie)" *ngIf="addedToFavorites" src="../../assets/img/addedToFavorite.png">
+    </div>
+</div>

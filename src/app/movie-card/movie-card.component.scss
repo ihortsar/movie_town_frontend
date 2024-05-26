@@ -1,0 +1,33 @@
+.wrapper {
+    height: fit-content;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 999;
+    padding: 20px;
+
+    .poster {
+        display: block;
+        width:75%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+h1 {
+    margin: 10px 0px 16px;
+    text-align: center;
+}
+
+p {
+    color: gray;
+    margin: 0
+}
+
+section {
+    margin-bottom: 15px;
+}
+
+.favoriteDiv {
+    display: flex;
+    justify-content: end;
+}
