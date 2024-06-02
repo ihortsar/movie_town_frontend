@@ -1,12 +1,13 @@
 import { NgFor, NgIf } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Subscription, lastValueFrom } from 'rxjs';
+import {Subscription, lastValueFrom } from 'rxjs';
 import { UserService } from '../services/user/user.service';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MovieCardComponent } from '../movie-card/movie-card.component';
 import { FormsModule } from '@angular/forms';
-
+import { Genre } from '../interfaces/genre.interface';
+import { Movie } from '../interfaces/movie.interface';
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -16,11 +17,10 @@ import { FormsModule } from '@angular/forms';
 })
 export class HomeComponent implements OnInit, OnDestroy {
   result = ''
-  genres: any = []
-  moviesOfGenrex: any[] = [];
+  genres: Genre[] = []
   url = `https://api.themoviedb.org/3/discover/movie`;
   subscription: Subscription = new Subscription();
-  filteredMovies: any[] = []
+  filteredMovies: Movie[] = []
 
   constructor(public http: HttpClient, private us: UserService, public dialog: MatDialog) { }
 
@@ -35,7 +35,9 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.subscription = this.us.currentUserSubject.subscribe(data => {
       this.us.updateCurrentUser(data)
     })
+
   };
+
 
 
   async fetchAllGenres() {
@@ -54,7 +56,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
   }
 
-  async fetchMoviesByGenre(genre: any, options: any) {
+  async fetchMoviesByGenre(genre: Genre, options: any) {
     try {
       const response = await fetch(`https://api.themoviedb.org/3/discover/movie?with_genres=${genre.id}&language=en`, options);
       const responseAsJson = await response.json();
@@ -84,13 +86,13 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   filterMovies() {
     this.filteredMovies = [];
-  
+
     if (this.result.length > 2) {
       const searchTerm = this.result.toLowerCase();
       const addedMovieIds = new Set<number>();
-  
-      this.genres.forEach((genre: any) => {
-        genre.movies.forEach((movie: any) => {
+
+      this.genres.forEach((genre: Genre) => {
+        genre.movies.forEach((movie: Movie) => {
           if (movie.title.toLowerCase().includes(searchTerm) && !addedMovieIds.has(movie.id)) {
             this.filteredMovies.push(movie);
             addedMovieIds.add(movie.id);
@@ -99,8 +101,6 @@ export class HomeComponent implements OnInit, OnDestroy {
       });
     }
   }
-  
-
 
 
 }

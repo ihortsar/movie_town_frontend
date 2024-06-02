@@ -42,4 +42,14 @@ input {
     left: 65%;
     transform: translate(-50%, -50%);
     z-index: 999;
+    height: 40px;
+    padding-left: 10px;
+}
+
+@media(max-width:700px) {
+    input {
+        display: none;
+    }
+
+
 }

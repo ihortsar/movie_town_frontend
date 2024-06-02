@@ -1,6 +1,7 @@
 body {
     margin: 0;
     overflow-y: hidden;
+    background-color: black;
 }
 
 label#mat-mdc-form-field-label-0 {
@@ -8,6 +9,10 @@ label#mat-mdc-form-field-label-0 {
     margin-left: -6px;
     font-weight: 400;
     color: #A1A2A2 !important
+}
+
+.mat-mdc-dialog-surface.mdc-dialog__surface {
+    background: black;
 }
 
 a {
@@ -163,4 +168,16 @@ body {
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
     background: #555;
+}
+
+.dialog-custom {
+    width: 40% !important;
+}
+
+@media(max-width:700px) {
+
+
+    .dialog-custom {
+        width: 70% !important;
+    }
 }

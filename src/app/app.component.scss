@@ -1,11 +1,10 @@
 header {
     background-color: black;
     display: flex;
-    width: 100%;
     align-items: center;
     justify-content: space-between;
 
-    img {
+    .logo {
         height: 60px;
         margin-left: 60px;
         margin-top: 20px;
@@ -15,10 +14,24 @@ header {
         display: flex;
         align-items: center;
         margin-right: 5%;
+        gap: 10px;
+        position: relative;
+
+        .signoutComp {
+            position: absolute;
+            top: 35px;
+        }
+
+        .signout {
+            height: 22px;
+            cursor: pointer;
+        }
 
         span {
             color: white;
             white-space: nowrap;
+            cursor: pointer;
+
         }
 
         .userIcon {
@@ -27,6 +40,8 @@ header {
         }
     }
 }
+
+
 
 .container {
     height: 100vh;
@@ -43,4 +58,46 @@ header {
     bottom: 0;
     left: 0;
     background-color: rgba(0, 0, 0, 0.4);
+}
+
+
+
+@media(min-width:1600px) {
+
+
+    .myCabinet {
+        img {
+            height: 50px;
+        }
+
+        .signout {
+            height: 40px;
+        }
+
+        span {
+            font-size: 32px;
+        }
+    }
+}
+
+@media(max-width:700px) {
+    header {
+        padding: 7px;
+
+        .logo {
+            height: 36px;
+            margin: 0;
+        }
+    }
+
+    .myCabinet {
+        .userIcon {
+            height: 23px !important;
+            margin: 0 !important;
+        }
+
+        span {
+            margin-right: 10px;
+        }
+    }
 }

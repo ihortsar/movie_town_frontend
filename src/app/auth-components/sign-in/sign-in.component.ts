@@ -1,12 +1,11 @@
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { Component, NgModule, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators, ReactiveFormsModule, NgModel, NgForm } from '@angular/forms';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators, ReactiveFormsModule, NgForm } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import { Observable, Subscription, lastValueFrom } from 'rxjs';
+import { Subscription, lastValueFrom } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { UserService } from '../../services/user/user.service';
 
 @Component({
@@ -22,8 +21,7 @@ export class SignInComponent implements OnInit, OnDestroy {
   password: string = '';
   token: string = '';
   userSubscription = new Subscription()
-  usersVideosSubscription = new Subscription()
-  constructor(private http: HttpClient, private sanitizer: DomSanitizer, public us: UserService) {
+  constructor(private http: HttpClient, private router: Router, public us: UserService) {
   }
 
   ngOnInit(): void {
@@ -32,11 +30,7 @@ export class SignInComponent implements OnInit, OnDestroy {
         this.us.updateCurrentUser(data)
       }
     });
-    this.usersVideosSubscription = this.us.usersVideosSubject.subscribe(data => {
-      if (data) {
-        this.us.updateUsersVideos(data)
-      }
-    });
+
   }
 
 
@@ -52,33 +46,33 @@ export class SignInComponent implements OnInit, OnDestroy {
   )
 
 
-  /**
-  * Retrieves user data from the signup form.
-  * @returns User data entered in the signup form
-  */
-  getUsersData() {
-    const email = this.signInForm.get('email')?.value as string
-    const password = this.signInForm.get('password')?.value as string
 
-    return { email, password }
-  }
 
 
   async signin() {
+    const email = this.signInForm.get('email')?.value as string
+    const password = this.signInForm.get('password')?.value as string
     try {
-      let url = environment.baseUrl + '/login/'
-      let body = this.getUsersData()
-      let response = await lastValueFrom(this.http.post(url, body))
-      let token = (response as any).token;
-      localStorage.setItem('token', token);
-      let user = (response as any).user;
+      await this.setToken()
+      let user = (await this.us.getLoginResponse(email, password) as any).user;
       this.us.currentUserSubject.next(user);
-      let usersVideos = (response as any).users_videos
-      this.us.usersVideosSubject.next(usersVideos)
+      await this.us.updateUsersVideos()
+      this.router.navigate(['/home']);
     } catch (er) {
       console.log('error occured:', er);
 
     }
+  }
+
+
+
+
+
+  async setToken() {
+    const email = this.signInForm.get('email')?.value as string
+    const password = this.signInForm.get('password')?.value as string
+    let token = (await this.us.getLoginResponse(email, password) as any).token;
+    localStorage.setItem('token', token);
   }
 
 
@@ -100,6 +94,5 @@ export class SignInComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.userSubscription.unsubscribe()
-    this.usersVideosSubscription.unsubscribe()
   }
 }

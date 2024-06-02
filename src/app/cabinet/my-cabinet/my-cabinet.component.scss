@@ -1,20 +1,38 @@
 .container {
-    height: 100vh;
+    height: 90vh;
     background-color: black;
     color: white;
-    padding-top: 105px;
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    justify-content: center;
+    gap: 20px;
+}
+
+.backToMenuForMobile {
+    display: none;
+    width: 100%;
+    font-size: 24px;
+}
+
+.second-container {
+    display: none;
 }
 
 section {
     display: flex;
     flex-direction: column;
     overflow-x: auto;
+    overflow-y: hidden;
 
     span {
         margin-left: 60px;
+        margin-bottom: 8px;
+    }
+
+    .profileSpan {
+        margin-bottom: -10px !important;
+        z-index: 5;
     }
 }
 
@@ -22,28 +40,97 @@ section {
     height: 100%;
     margin-left: 60px;
     display: flex;
+
 }
 
+.addVideo {
+    position: relative;
+    min-width: 100px;
+    height: 140px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: #424242 solid 0.5px;
+    padding-top: 7px;
+    margin-right: 25px;
+
+    textarea {
+        width: 94%;
+        background: black;
+        resize: none;
+        height: 30%;
+        outline: none;
+        border-left: none;
+        border-right: none;
+        color: gray;
+    }
+
+    input {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+
+    img {
+        height: 60px;
+        margin-top: 20px;
+    }
+
+    p {
+        color: gray;
+        font-size: 16px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 110px;
+        background-color: black;
+        text-align: center;
+        padding-top: 5px;
+
+    }
+
+    button {
+        background-color: #C11119;
+        outline: none;
+        border-radius: 3px;
+        border: none;
+        padding: 4px 8px;
+        color: white;
+        margin-top: 15px;
+    }
+}
 
 .movieBox {
     width: 65px;
     height: 160px;
+    overflow: visible;
+    cursor: pointer;
 
     &:hover {
         transition: ease-in-out 0.2s;
-        scale: 1.2;
+        transform: translate(0, -5px);
         z-index: 5;
+
     }
 
-    img {
+    .posterImg {
         height: 100%;
     }
 }
 
 .cowboy {
-    height: 150px;
+    height: 120px;
     width: 100px;
     margin-left: 60px;
+    cursor: pointer;
 }
 
 app-edit-profile {
@@ -59,20 +146,108 @@ app-edit-profile {
     flex-direction: column;
     margin-right: 15px;
     background-color: black;
+    cursor: pointer;
+    overflow: visible;
 
     &:hover {
         transition: ease-in-out 0.2s;
-        scale: 1.2;
+        transform: translate(0, -5px);
         z-index: 5;
+    }
+
+    .videoHeader {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 4px;
     }
 
     p {
         font-size: 12px;
         color: #bcb8b8;
-
+        margin-bottom: 0;
     }
+}
+
+.buttons {
+    display: flex;
+    gap: 5px;
+}
+
+.green {
+    background-color: green !important;
 }
 
 .videoBox {
     height: 120px;
+}
+
+@media(min-width:1600px) {
+    .container {
+        justify-content: space-evenly;
+    }
+
+
+    .cowboy {
+        height: 350px;
+        width: fit-content;
+    }
+
+    span {
+        font-size: 30px;
+        margin-bottom: 30px !important;
+    }
+
+    .addVideo {
+        height: 240px;
+        width: 145px;
+
+        p {
+            bottom: 190px;
+        }
+    }
+
+    .videoBox {
+        height: 220px;
+    }
+
+    .movieBox {
+        height: 275px;
+    }
+
+}
+
+@media(max-width:700px) {
+    .editSection {
+        display: none;
+    }
+
+    app-users-videos {
+        display: none;
+        flex-grow: 1;
+    }
+
+    app-users-movies {
+        display: none;
+        flex-grow: 1;
+    }
+
+    .second-container {
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        width: 100%;
+        font-size: 35px;
+
+        span {
+            cursor: pointer;
+        }
+    }
+
+    .backToMenuForMobile {
+        position: fixed;
+        bottom: 0;
+        display: flex;
+        justify-content: center;
+    }
 }

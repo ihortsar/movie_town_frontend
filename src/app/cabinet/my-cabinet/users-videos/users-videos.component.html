@@ -1,0 +1,34 @@
+<section>
+    <span>Your videos</span>
+    <div class="movieBoxes">
+        <div class="addVideo" *ngIf="!fileToUpload">
+            <input type="file" id="file" (change)="retrieveFile($event)">
+            <p>Add a video</p>
+            <img class="addImg" src="../../../assets/img/add-64.png">
+        </div>
+        <div class="addVideo" *ngIf="fileToUpload">
+            <textarea [(ngModel)]="description" placeholder="Add a description"></textarea>
+            <div class="buttons">
+                <button (click)="addVideo()" type="submit" class="accept-form green">Add</button>
+                <button (click)="resetAddVideoButton()" type="submit" class="accept-form">Cancel</button>
+            </div>
+        </div>
+        <div class="mobileWrap">
+            <div *ngFor="let video of us.usersVideos" class="usersVideo">
+                <div class="videoHeader">
+                    <p>{{video.title}}</p>
+                    <img (click)="deleteVideo(video.id)" src="../../../assets/img/close.png">
+                </div>
+                <video class="videoBox" controls>
+                    <source src="{{ environment.baseUrl + '/' + video.video_file }}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        </div>
+    </div>
+    <div class="backToMenuForMobile">
+        <p (click)="closeWindow('flex')">
+            back to menu
+        </p>
+    </div>
+</section>

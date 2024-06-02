@@ -5,6 +5,7 @@ import { UserService } from '../services/user/user.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { lastValueFrom } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { Movie } from '../interfaces/movie.interface';
 
 @Component({
   selector: 'app-movie-card',
@@ -15,7 +16,7 @@ import { environment } from '../../environments/environment';
 })
 export class MovieCardComponent implements OnInit {
   addedToFavorites = false
-  constructor(@Inject(MAT_DIALOG_DATA) public movie: any, private us: UserService, public http: HttpClient,) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public movie: Movie, private us: UserService, public http: HttpClient,) { }
   ngOnInit(): void {
     this.toggleAddedToFavorites()
   }
@@ -28,10 +29,8 @@ export class MovieCardComponent implements OnInit {
   }
 
 
-  addOrDeleteMovieFromSelected(movie: {},) {
+  addOrDeleteMovieFromSelected(movie: Movie,) {
     const url = environment.baseUrl + '/current_user/'
-
-
     this.us.currentUser.selected_movies = this.us.currentUser.selected_movies || []
     if (this.us.checkIfAdded(this.movie) === -1) {
       this.us.currentUser.selected_movies.push(movie)

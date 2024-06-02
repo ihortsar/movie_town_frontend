@@ -1,10 +1,14 @@
 <header>
-  <img src="../assets/img/logo.png">
-  <div class="myCabinet" routerLink="my-area/">
+  <img class="logo" src="../assets/img/logo.png">
+  <div class="myCabinet">
     <img class="userIcon" src="../assets/img/user.png">
-    <span>My area</span>
+    <span *ngIf="router.url=='/home'" routerLink="my-area/">My area</span>
+    <span *ngIf="router.url=='/my-area'" routerLink="home/">Home</span>
+    <img class="signout" (click)="handleSignoutRequest()" src="../assets/img/logout.png">
+    <app-sign-out class="signoutComp" *ngIf="us.signoutRequest"></app-sign-out>
   </div>
 </header>
+<app-loader></app-loader>
 <router-outlet>
 
 </router-outlet>

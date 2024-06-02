@@ -1,0 +1,14 @@
+<section>
+    <span>Your selected movies</span>
+    <div class="movieBoxes">
+        <div class="movieBox" *ngFor="let movie of us.currentUser.selected_movies">
+            <img class="posterImg" (click)="openDialog(movie)" *ngIf="movie && movie.poster_path !== undefined"
+                src="https://image.tmdb.org/t/p/w500{{movie.poster_path}}">
+        </div>
+    </div>
+    <div class="backToMenuForMobile">
+        <p (click)="closeWindow('flex')">
+            back to menu
+        </p>
+    </div>
+</section>

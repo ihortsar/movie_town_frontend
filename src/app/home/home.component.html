@@ -1,6 +1,6 @@
 <div class="container">
-    <input [(ngModel)]="result" (ngModelChange)="filterMovies()">
-    <div *ngIf="filteredMovies.length===0">
+    <input [(ngModel)]="result" placeholder="Look for a title" (ngModelChange)="filterMovies()">
+    <div style="width:100%"  *ngIf="filteredMovies.length===0">
         <div class="genreSection" *ngFor="let genre of genres">
             <span class="genreName">{{genre.name}}</span>
             <div class="movieBoxes">

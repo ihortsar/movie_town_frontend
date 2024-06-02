@@ -1,0 +1,16 @@
+.container {
+    border: 1px solid rgb(165, 164, 164);
+    background-color: rgb(12, 12, 12);
+    color: white;
+    padding: 9px 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: max-content;
+    cursor: pointer;
+
+    p {
+        font-size: 24px;
+        margin: 0 !important;
+    }
+}

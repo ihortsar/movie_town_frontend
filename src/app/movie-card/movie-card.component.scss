@@ -1,5 +1,5 @@
 .wrapper {
-    height: fit-content;
+    height: 100%;
     color: white;
     background-color: rgba(0, 0, 0, 0.8);
     z-index: 999;
@@ -7,7 +7,7 @@
 
     .poster {
         display: block;
-        width:75%;
+        width: 75%;
         margin-left: auto;
         margin-right: auto;
     }

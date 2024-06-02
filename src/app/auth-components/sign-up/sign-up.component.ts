@@ -53,8 +53,8 @@ export class SignUpComponent {
       email: this.signUpForm.get('email')?.value as string,
       password1: this.signUpForm.get('password1')?.value as string,
       password2: this.signUpForm.get('password2')?.value as string,
-      firstName: this.signUpForm.get('firstName')?.value as string,
-      lastName: this.signUpForm.get('lastName')?.value as string,
+      first_name: this.signUpForm.get('firstName')?.value as string,
+      last_name: this.signUpForm.get('lastName')?.value as string,
       birthday: birthday || ''
     })
     this.signUp(user)
@@ -63,13 +63,14 @@ export class SignUpComponent {
 
   async signUp(body: User) {
     let options = {
+      body: body,
       headers: {
         'Content-Type': 'application/json'
       }
     }
     try {
       let url = environment.baseUrl + '/signup/'
-      let response = await lastValueFrom(this.http.post(url, body, options))
+      await lastValueFrom(this.http.post(url, options))
     } catch (er) {
       console.log(er);
 
