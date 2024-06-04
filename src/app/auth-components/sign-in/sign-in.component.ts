@@ -1,27 +1,41 @@
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators, ReactiveFormsModule, NgForm } from '@angular/forms';
+import { FormControl, FormGroup, Validators, ReactiveFormsModule, NgForm, FormBuilder } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { Subscription, lastValueFrom } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { UserService } from '../../services/user/user.service';
+import { MatInputModule } from '@angular/material/input';
+import { merge } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
   selector: 'app-sign-in',
   standalone: true,
-  imports: [FormsModule, NgIf, ReactiveFormsModule, RouterModule, HttpClientModule],
+  imports: [FormsModule, NgIf, ReactiveFormsModule, RouterModule, HttpClientModule, MatInputModule, MatFormFieldModule],
   templateUrl: './sign-in.component.html',
   styleUrl: './sign-in.component.scss'
 })
+
 export class SignInComponent implements OnInit, OnDestroy {
   forgotPassword = false
   email: string = '';
   password: string = '';
   token: string = '';
   userSubscription = new Subscription()
-  constructor(private http: HttpClient, private router: Router, public us: UserService) {
+  signInForm: FormGroup
+  
+  constructor(private http: HttpClient, private router: Router, public us: UserService, private fb: FormBuilder) {
+    this.signInForm = this.fb.group({
+      emailFormControl: ['', [Validators.required, Validators.email]],
+      password: new FormControl('', Validators.required),
+
+    });
+
+
   }
 
   ngOnInit(): void {
@@ -32,21 +46,6 @@ export class SignInComponent implements OnInit, OnDestroy {
     });
 
   }
-
-
-  /**
-   * FormGroup for user signup form.
-   * Contains form controls for username, first name, last name, email and password.
-   */
-  signInForm = new FormGroup(
-    {
-      email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', Validators.required),
-    }
-  )
-
-
-
 
 
   async signin() {

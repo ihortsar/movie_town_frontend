@@ -1,7 +1,7 @@
 import { NgFor, NgIf } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import {Subscription, lastValueFrom } from 'rxjs';
+import { Subscription, lastValueFrom } from 'rxjs';
 import { UserService } from '../services/user/user.service';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MovieCardComponent } from '../movie-card/movie-card.component';
@@ -87,7 +87,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   filterMovies() {
     this.filteredMovies = [];
 
-    if (this.result.length > 2) {
+    if (this.result.length > 1) {
       const searchTerm = this.result.toLowerCase();
       const addedMovieIds = new Set<number>();
 
