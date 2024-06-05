@@ -129,12 +129,17 @@ body {
 
 .dialog-custom {
     width: 40% !important;
+    overflow-y: auto;
 }
 
 @media(max-width:700px) {
-
+    form {
+        padding: 0;
+        width: 100%;
+    }
 
     .dialog-custom {
         width: 70% !important;
+
     }
 }

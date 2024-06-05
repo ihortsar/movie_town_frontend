@@ -4,6 +4,7 @@ section {
 }
 .movieBox{
     height: auto !important;
+    cursor: pointer;
 }
 .movieBoxes {
     img {
@@ -23,6 +24,7 @@ section {
 
     .dialog-custom {
         width: 70% !important;
+        overflow-y: auto !important;
     }
 
     .movieBoxes {

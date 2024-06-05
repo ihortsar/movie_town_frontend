@@ -75,13 +75,10 @@ export class HomeComponent implements OnInit, OnDestroy {
   openDialog(movie: {}) {
     const dialogRef = this.dialog.open(MovieCardComponent, {
       width: '40%',
-      height: '100%',
+      height: 'inherit',
       data: movie
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
   }
 
   filterMovies() {
