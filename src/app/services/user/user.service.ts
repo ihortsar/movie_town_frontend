@@ -61,7 +61,6 @@ export class UserService {
       const updatedVideos = await lastValueFrom(this.http.get<Video[]>(videosUrl, {
         headers: {
           'Authorization': `token ${localStorage.getItem('token')}`,
-          'Content-Type': 'application/json',
         }
       }))
       if (updatedVideos && updatedVideos.length > 0) {
@@ -92,5 +91,6 @@ export class UserService {
     }
     return index;
   }
+
 
 }

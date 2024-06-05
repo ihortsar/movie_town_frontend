@@ -7,7 +7,8 @@
             <img class="addImg" src="../../../assets/img/add-64.png">
         </div>
         <div class="addVideo" *ngIf="fileToUpload">
-            <textarea [(ngModel)]="description" placeholder="Add a description"></textarea>
+            <textarea [ngStyle]="{'border-color': noDescript ? 'red' : 'gray'}" [(ngModel)]="description"
+                placeholder="Add a description"></textarea>
             <div class="buttons">
                 <button (click)="addVideo()" type="submit" class="accept-form green">Add</button>
                 <button (click)="resetAddVideoButton()" type="submit" class="accept-form">Cancel</button>
