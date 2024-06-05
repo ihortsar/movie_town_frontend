@@ -1,6 +1,6 @@
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HttpErrorResponse } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators, ReactiveFormsModule, NgForm, FormBuilder } from '@angular/forms';
+import { FormControl, FormGroup, Validators, ReactiveFormsModule, NgForm } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { Subscription, lastValueFrom } from 'rxjs';
 import { environment } from '../../../environments/environment';
@@ -8,34 +8,22 @@ import { NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { UserService } from '../../services/user/user.service';
 import { MatInputModule } from '@angular/material/input';
-import { merge } from 'rxjs';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatFormFieldModule } from '@angular/material/form-field';
-
 @Component({
   selector: 'app-sign-in',
   standalone: true,
-  imports: [FormsModule, NgIf, ReactiveFormsModule, RouterModule, HttpClientModule, MatInputModule, MatFormFieldModule],
+  imports: [FormsModule, NgIf, ReactiveFormsModule, RouterModule, HttpClientModule, MatFormFieldModule, MatInputModule,],
   templateUrl: './sign-in.component.html',
   styleUrl: './sign-in.component.scss'
 })
-
 export class SignInComponent implements OnInit, OnDestroy {
   forgotPassword = false
   email: string = '';
   password: string = '';
   token: string = '';
   userSubscription = new Subscription()
-  signInForm: FormGroup
-  
-  constructor(private http: HttpClient, private router: Router, public us: UserService, private fb: FormBuilder) {
-    this.signInForm = this.fb.group({
-      emailFormControl: ['', [Validators.required, Validators.email]],
-      password: new FormControl('', Validators.required),
-
-    });
-
-
+  invalidData: string = ''
+  constructor(private http: HttpClient, private router: Router, public us: UserService) {
   }
 
   ngOnInit(): void {
@@ -48,18 +36,24 @@ export class SignInComponent implements OnInit, OnDestroy {
   }
 
 
+
+  emailFormControl = new FormControl('', [Validators.required, Validators.email]);
+  passwordFormControl = new FormControl('', Validators.required);
+
+
+
+
   async signin() {
-    const email = this.signInForm.get('email')?.value as string
-    const password = this.signInForm.get('password')?.value as string
+    const email = this.emailFormControl.value as string
+    const password = this.passwordFormControl.value as string
     try {
       await this.setToken()
       let user = (await this.us.getLoginResponse(email, password) as any).user;
       this.us.currentUserSubject.next(user);
       await this.us.updateUsersVideos()
       this.router.navigate(['/home']);
-    } catch (er) {
-      console.log('error occured:', er);
-
+    } catch (er: any) {
+      this.invalidData = er.error.error;
     }
   }
 
@@ -68,8 +62,8 @@ export class SignInComponent implements OnInit, OnDestroy {
 
 
   async setToken() {
-    const email = this.signInForm.get('email')?.value as string
-    const password = this.signInForm.get('password')?.value as string
+    const email = this.emailFormControl.value as string
+    const password = this.passwordFormControl.value as string
     let token = (await this.us.getLoginResponse(email, password) as any).token;
     localStorage.setItem('token', token);
   }

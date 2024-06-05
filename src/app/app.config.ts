@@ -12,5 +12,5 @@ export const appConfig: ApplicationConfig = {
     provide: HTTP_INTERCEPTORS,
     useClass: LoaderInterceptorService,
     multi: true
-  }, provideHttpClient(withFetch()), provideRouter(routes), provideClientHydration(), provideAnimationsAsync(), provideAnimationsAsync(), provideAnimationsAsync(), provideAnimationsAsync()]
+  }, provideHttpClient(withFetch()), provideRouter(routes), provideClientHydration(), provideAnimationsAsync()]
 };

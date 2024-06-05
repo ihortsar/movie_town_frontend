@@ -10,8 +10,12 @@
         <span>{{movie.release_date}}</span>
     </section>
     <div class="favoriteDiv">
-        <img (click)="addOrDeleteMovieFromSelected(movie)" *ngIf="!addedToFavorites"
-            src="../../assets/img/favorite.png">
-        <img (click)="addOrDeleteMovieFromSelected(movie)" *ngIf="addedToFavorites" src="../../assets/img/addedToFavorite.png">
+        <div *ngIf="!addedToFavorites">
+            <span>Add to favorites</span>
+            <img (click)=" addOrDeleteMovieFromSelected(movie)" src="../../assets/img/favorite.png">
+        </div>
+        <div *ngIf="addedToFavorites">
+            <span>Delete from favorites</span>
+            <img (click)="addOrDeleteMovieFromSelected(movie)" src="../../assets/img/addedToFavorite.png">
+        </div>
     </div>
-</div>

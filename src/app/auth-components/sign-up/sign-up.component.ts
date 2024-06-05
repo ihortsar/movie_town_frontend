@@ -15,6 +15,7 @@ import { User } from '../../classes/user.class';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { lastValueFrom } from 'rxjs';
 import { environment } from '../../../environments/environment';
+import { Router } from '@angular/router';
 
 
 
@@ -22,12 +23,12 @@ import { environment } from '../../../environments/environment';
   selector: 'app-sign-up',
   standalone: true,
   providers: [provideNativeDateAdapter()],
-  imports: [NgIf, HttpClientModule, MatSlideToggleModule, FormsModule, ReactiveFormsModule, MatDatepickerModule, MatExpansionModule, MatIconModule, MatInputModule, MatFormFieldModule],
+  imports: [NgStyle, MatFormFieldModule, MatInputModule, NgIf, HttpClientModule, MatSlideToggleModule, FormsModule, ReactiveFormsModule, MatDatepickerModule, MatExpansionModule, MatIconModule, MatFormFieldModule,],
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.scss',]
 })
 export class SignUpComponent {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   /**
   * FormGroup for user signup form.
@@ -46,24 +47,26 @@ export class SignUpComponent {
 
 
 
-  createUser() {
-    const date = this.signUpForm.get('birthday')?.value as string | undefined;
-    const birthday = date ? new DatePipe('en-US').transform(date, 'yyyy-MM-dd')?.toString() : '';
-    let user = new User({
-      email: this.signUpForm.get('email')?.value as string,
-      password1: this.signUpForm.get('password1')?.value as string,
-      password2: this.signUpForm.get('password2')?.value as string,
-      first_name: this.signUpForm.get('firstName')?.value as string,
-      last_name: this.signUpForm.get('lastName')?.value as string,
-      birthday: birthday || ''
-    })
-    this.signUp(user)
+  async createUser() {
+    if (this.signUpForm.valid) {
+      const date = this.signUpForm.get('birthday')?.value as string | undefined;
+      const birthday = date ? new DatePipe('en-US').transform(date, 'yyyy-MM-dd')?.toString() : '';
+      let user = new User({
+        email: this.signUpForm.get('email')?.value as string,
+        password1: this.signUpForm.get('password1')?.value as string,
+        password2: this.signUpForm.get('password2')?.value as string,
+        first_name: this.signUpForm.get('firstName')?.value as string,
+        last_name: this.signUpForm.get('lastName')?.value as string,
+        birthday: birthday || ''
+      })
+      await this.signUp(user)
+    }
   }
 
 
   async signUp(body: User) {
     let options = {
-      body: body,
+      data: body,
       headers: {
         'Content-Type': 'application/json'
       }
@@ -71,9 +74,9 @@ export class SignUpComponent {
     try {
       let url = environment.baseUrl + '/signup/'
       await lastValueFrom(this.http.post(url, options))
+      this.router.navigate(['/home']);
     } catch (er) {
       console.log(er);
-
     }
   }
 }

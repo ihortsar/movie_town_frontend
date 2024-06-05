@@ -4,12 +4,6 @@ body {
     background-color: black;
 }
 
-label#mat-mdc-form-field-label-0 {
-    padding: 0px;
-    margin-left: -6px;
-    font-weight: 400;
-    color: #A1A2A2 !important
-}
 
 .mat-mdc-dialog-surface.mdc-dialog__surface {
     background: black;
@@ -20,40 +14,10 @@ a {
     color: white;
 }
 
-/* .input-div {
-    position: relative;
-    width: 80%;
-    overflow-x: hidden;
+.input-div {
+    width: 75%;
 
-    input {
-        padding: 10px 0 0 10px;
-        border: none;
-        border-bottom: 1px solid #ccc;
-        line-height: 3rem;
-        background-color: #212A37;
-        width: 100%;
-        color: white;
-
-        &:focus {
-            background-color: transparent;
-        }
-    }
-
-    label {
-        position: absolute;
-        top: 20px;
-        left: 4px;
-        padding: 0 5px;
-        color: #aaa !important;
-        pointer-events: none;
-        font-size: 16px;
-    }
-
-    input:focus+label {
-        top: 3px;
-        font-size: 12px;
-    }
-} */
+}
 
 .containerWithMoviesBackground {
     height: 100vh;
@@ -88,6 +52,7 @@ form {
     width: 40%;
     background-color: rgba(0, 0, 0, 0.7);
     padding: 0 30px;
+    margin-top: 40px;
 
     h1 {
         color: white;
@@ -102,9 +67,7 @@ form {
     }
 }
 
-mat-form-field {
-    width: 100%;
-}
+
 
 .mat-mdc-text-field-wrapper.mdc-text-field.mdc-text-field--filled {
     background-color: #212A37;
@@ -120,13 +83,7 @@ input#mat-input-0 {
     font-size: 12px !important;
 }
 
-.mat-mdc-form-field-subscript-wrapper.mat-mdc-form-field-bottom-align {
-    display: none;
-}
 
-span.mat-mdc-form-field-required-marker.mdc-floating-label--required {
-    display: none;
-}
 
 
 
@@ -181,5 +138,3 @@ body {
         width: 70% !important;
     }
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

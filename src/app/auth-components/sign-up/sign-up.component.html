@@ -1,18 +1,22 @@
 <div class="containerWithMoviesBackground">
     <div class="shadow-container">
-        <form [formGroup]="signUpForm" (submit)="createUser()">
+        <form [formGroup]="signUpForm" (submit)="createUser();">
 
             <h1>Sign up</h1>
             <div class="input-div">
-                <input formControlName="firstName">
-                <label [class.focused]="signUpForm.get('firstName')?.value">First name</label>
+                <mat-form-field class="example-full-width">
+                    <input matInput formControlName="firstName">
+                    <mat-label>First name</mat-label>
+                </mat-form-field>
             </div>
             <div class="input-div">
-                <input formControlName="lastName" type="text">
-                <label [class.focused]="signUpForm.get('lastName')?.value">Last name</label>
+                <mat-form-field class="example-full-width">
+                    <input matInput formControlName="lastName" type="text">
+                    <mat-label>Last name</mat-label>
+                </mat-form-field>
             </div>
             <div class="input-div">
-                <mat-form-field>
+                <mat-form-field class="example-full-width">
                     <mat-label>Your birthdate</mat-label>
                     <input formControlName="birthday" matInput [matDatepicker]="picker">
                     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
@@ -22,18 +26,24 @@
 
 
             <div class="input-div">
-                <input formControlName="email" type="email">
-                <label [class.focused]="signUpForm.get('email')?.value">email</label>
+                <mat-form-field class="example-full-width">
+                    <input matInput formControlName="email" type="email">
+                    <mat-label>email</mat-label>
+                </mat-form-field>
             </div>
 
             <div class="input-div">
-                <input formControlName="password1" type="password">
-                <label [class.focused]="signUpForm.get('password1')?.value">password</label>
+                <mat-form-field class="example-full-width">
+                    <input matInput formControlName="password1" type="password">
+                    <mat-label>password</mat-label>
+                </mat-form-field>
             </div>
 
-            <div  *ngIf="(signUpForm.get('password1')?.value || '').length > 7" class="input-div">
-                <input formControlName="password2" type="password">
-                <label [class.focused]="signUpForm.get('password2')?.value">confirm password</label>
+            <div *ngIf="(signUpForm.get('password1')?.value || '').length > 7" class="input-div">
+                <mat-form-field class="example-full-width">
+                    <input matInput formControlName="password2" type="password">
+                    <mat-label>confirm password</mat-label>
+                </mat-form-field>
             </div>
             <button type="submit" class="accept-form">Sign up</button>
         </form>

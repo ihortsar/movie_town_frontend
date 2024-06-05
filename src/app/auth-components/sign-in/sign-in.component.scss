@@ -23,8 +23,21 @@ button {
     right: 2%
 }
 
+mat-error {
+
+    color: red;
+}
+
+mat-label {
+    color: gray;
+}
+
 .forgotPasswordButton {
     cursor: pointer;
+}
+
+.example-full-width {
+    width: 100%;
 }
 
 ::ng-deep .forgotPasswordForm {

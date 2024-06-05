@@ -1,5 +1,4 @@
 .wrapper {
-    height: 100%;
     color: white;
     background-color: rgba(0, 0, 0, 0.8);
     z-index: 999;
@@ -30,4 +29,17 @@ section {
 .favoriteDiv {
     display: flex;
     justify-content: end;
+
+
+    div {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        img {
+            margin-left: 10px;
+            cursor: pointer;
+        }
+    }
+
 }

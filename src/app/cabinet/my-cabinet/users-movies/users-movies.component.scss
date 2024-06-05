@@ -1,4 +1,15 @@
-
+section {
+    min-height: 170px !important;
+    overflow-y: auto !important;
+}
+.movieBox{
+    height: auto !important;
+}
+.movieBoxes {
+    img {
+        height: 160px !important;
+    }
+}
 
 @media(max-width:700px) {
     section {

@@ -9,7 +9,7 @@ import { SignOutComponent } from './auth-components/sign-out/sign-out.component'
 export const routes: Routes = [
     { path: '', component: HomeComponent, canActivate: [AuthGuard] },
     { path: 'login', component: SignInComponent },
-    { path: 'signup', component: SignUpComponent, canActivate: [AuthGuard] },
+    { path: 'signup', component: SignUpComponent },
     { path: 'signout', component: SignOutComponent, canActivate: [AuthGuard] },
     { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
     { path: 'my-area', component: MyCabinetComponent, canActivate: [AuthGuard] },
