@@ -1,6 +1,5 @@
 import { Inject, Injectable } from '@angular/core';
 import { BehaviorSubject, lastValueFrom } from 'rxjs';
-import { User } from '../../classes/user.class';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { IUser } from '../../interfaces/user.interface';
@@ -15,7 +14,7 @@ export class UserService {
   signoutRequest: boolean = false
 
   currentUserSubject
-  currentUser: IUser = {
+  currentUser: IUser = { 
     first_name: '',
     last_name: '',
     birthday: '',
@@ -28,7 +27,6 @@ export class UserService {
   usersVideosSubject
 
   constructor(@Inject(DOCUMENT) private document: Document, private http: HttpClient) {
-    const localStorage = document.defaultView?.localStorage;
     this.currentUserSubject = new BehaviorSubject(JSON.parse(localStorage?.getItem('currentUser') || '{}')),
       this.usersVideosSubject = new BehaviorSubject<Video[]>([])
 
@@ -91,6 +89,6 @@ export class UserService {
     }
     return index;
   }
-
+ 
 
 }

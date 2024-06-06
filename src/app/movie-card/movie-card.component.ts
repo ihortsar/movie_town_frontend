@@ -39,7 +39,7 @@ export class MovieCardComponent implements OnInit {
     }
     this.toggleAddedToFavorites()
 
-    this.us.currentUserSubject.next(this.us.currentUser)
+    this.us.currentUserSubject?.next(this.us.currentUser)
     const body = {
       id: this.us.currentUser.id,
       selected_movies: this.us.currentUser.selected_movies
