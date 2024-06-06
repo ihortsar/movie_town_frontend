@@ -3,6 +3,7 @@
     background-color: rgba(0, 0, 0, 0.8);
     z-index: 999;
     padding: 20px;
+    height: auto !important;
 
     .poster {
         display: block;
@@ -42,4 +43,14 @@ section {
         }
     }
 
+}
+
+@media(max-height:700px) {
+    .wrapper {
+        height: -webkit-fill-available;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+    }
 }
