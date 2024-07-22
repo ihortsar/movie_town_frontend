@@ -22,9 +22,6 @@ export class UsersMoviesComponent {
       data: movie
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
   }
 
 

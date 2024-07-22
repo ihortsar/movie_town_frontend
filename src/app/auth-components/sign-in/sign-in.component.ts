@@ -3,7 +3,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators, ReactiveFormsModule, NgForm } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { Subscription, lastValueFrom } from 'rxjs';
-import { environment } from '../../../environments/environment';
+import { environment } from '../../../environments/environment.prod';
+
 import { NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { UserService } from '../../services/user/user.service';
@@ -47,11 +48,12 @@ export class SignInComponent implements OnInit, OnDestroy {
     const email = this.emailFormControl.value as string
     const password = this.passwordFormControl.value as string
     try {
-      await this.setToken()
       let user = (await this.us.getLoginResponse(email, password) as any).user;
       this.us.currentUserSubject.next(user);
       await this.us.updateUsersVideos()
       this.router.navigate(['/home']);
+/*       await this.setToken()
+ */
     } catch (er: any) {
       this.invalidData = er.error.error;
     }

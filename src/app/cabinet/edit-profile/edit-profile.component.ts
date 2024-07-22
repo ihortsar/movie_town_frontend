@@ -3,7 +3,7 @@ import { UserService } from '../../services/user/user.service';
 import { NgIf } from '@angular/common';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
-import { environment } from '../../../environments/environment';
+import { environment } from '../../../environments/environment.prod';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { BehaviorSubject, Subscription, lastValueFrom } from 'rxjs';
 
@@ -62,10 +62,6 @@ export class EditProfileComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
 
-
-
-
-
   toggleEditName() {
     this.editName = !this.editName
   }
@@ -100,7 +96,6 @@ export class EditProfileComponent implements OnInit, AfterViewInit, OnDestroy {
     this.us.sendUserToBackend(body)
     this.closeEdit.emit(false);
   }
-
 
 
   toggleEditPassword() {

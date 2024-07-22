@@ -1,11 +1,12 @@
 import { Inject, Injectable } from '@angular/core';
 import { BehaviorSubject, lastValueFrom } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../environments/environment';
+import { environment } from '../../../environments/environment.prod';
 import { IUser } from '../../interfaces/user.interface';
 import { Movie } from '../../interfaces/movie.interface';
 import { Video } from '../../interfaces/video.interface';
 import { DOCUMENT } from '@angular/common';
+import { CsrfService } from '../csrf.service';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +15,7 @@ export class UserService {
   signoutRequest: boolean = false
 
   currentUserSubject
-  currentUser: IUser = { 
+  currentUser: IUser = {
     first_name: '',
     last_name: '',
     birthday: '',
@@ -26,7 +27,7 @@ export class UserService {
   usersVideos: Video[] = []
   usersVideosSubject
 
-  constructor(@Inject(DOCUMENT) private document: Document, private http: HttpClient) {
+  constructor(@Inject(DOCUMENT) private document: Document, private http: HttpClient, public ts: CsrfService) {
     this.currentUserSubject = new BehaviorSubject(JSON.parse(localStorage?.getItem('currentUser') || '{}')),
       this.usersVideosSubject = new BehaviorSubject<Video[]>([])
 
@@ -34,12 +35,21 @@ export class UserService {
   }
 
   async getLoginResponse(email: string, password: string) {
+
     let url = environment.baseUrl + '/login/'
     let body = {
       email,
       password
     }
-    let response = await lastValueFrom(this.http.post(url, body))
+    const csrftoken = this.ts.getCookie('csrftoken')
+    console.log('actual token', csrftoken);
+    
+    const headers = {
+      'X-CSRFToken': csrftoken || '',
+    };
+    console.log(headers);
+
+    let response = await lastValueFrom(this.http.post(url, body, { headers }))
     return response
   }
 
@@ -57,9 +67,9 @@ export class UserService {
     const videosUrl = environment.baseUrl + `/video/${this.currentUser.id}`
     try {
       const updatedVideos = await lastValueFrom(this.http.get<Video[]>(videosUrl, {
-        headers: {
+      /*   headers: {
           'Authorization': `token ${localStorage.getItem('token')}`,
-        }
+        } */
       }))
       if (updatedVideos && updatedVideos.length > 0) {
         this.usersVideosSubject.next(updatedVideos)
@@ -89,6 +99,6 @@ export class UserService {
     }
     return index;
   }
- 
+
 
 }

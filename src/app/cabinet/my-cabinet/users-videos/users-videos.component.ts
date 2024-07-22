@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { UserService } from '../../../services/user/user.service';
 import { lastValueFrom } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { environment } from '../../../../environments/environment';
+import { environment } from '../../../../environments/environment.prod';
 
 @Component({
   selector: 'app-users-videos',

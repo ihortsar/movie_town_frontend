@@ -3,7 +3,7 @@ import { UserService } from '../../services/user/user.service';
 import { NgFor, NgIf, NgStyle } from '@angular/common';
 import { EditProfileComponent } from '../edit-profile/edit-profile.component';
 import { Subscription } from 'rxjs';
-import { environment } from '../../../environments/environment';
+import { environment } from '../../../environments/environment.prod';
 import { FormsModule } from '@angular/forms';
 import { UsersVideosComponent } from './users-videos/users-videos.component';
 import { UsersMoviesComponent } from './users-movies/users-movies.component';

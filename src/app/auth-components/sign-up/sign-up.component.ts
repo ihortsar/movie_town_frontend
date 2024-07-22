@@ -14,7 +14,7 @@ import { DatePipe, NgFor, NgIf, NgStyle } from '@angular/common';
 import { User } from '../../classes/user.class';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { lastValueFrom } from 'rxjs';
-import { environment } from '../../../environments/environment';
+import { environment } from '../../../environments/environment.prod';
 import { Router } from '@angular/router';
 
 
