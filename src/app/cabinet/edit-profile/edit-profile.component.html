@@ -3,12 +3,13 @@
         <h1>Profile</h1>
         <div class="info">
             <div class="name">
-                <div>
+                <div *ngIf="!editFirstName">
                     <span>{{us.currentUser.first_name}}</span>
                     <span>{{us.currentUser.last_name}}</span>
                 </div>
-                <div *ngIf="editName" class="input-div">
-                    <input [value]="editForm.get('name').value" formControlName="name">
+                <div *ngIf="editFirstName" class="input-div">
+                    <input [value]="editForm.get('firstName').value" formControlName="firstName">
+                    <input [value]="editForm.get('lastName').value" formControlName="lastName">
                 </div>
                 <img (click)="toggleEditName()" class="pen" src="../../../assets/img/edit.png">
             </div>

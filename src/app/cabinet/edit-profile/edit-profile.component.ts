@@ -3,7 +3,6 @@ import { UserService } from '../../services/user/user.service';
 import { NgIf } from '@angular/common';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
-import { environment } from '../../../environments/environment.prod';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { BehaviorSubject, Subscription, lastValueFrom } from 'rxjs';
 
@@ -16,7 +15,8 @@ import { BehaviorSubject, Subscription, lastValueFrom } from 'rxjs';
 })
 export class EditProfileComponent implements OnInit, AfterViewInit, OnDestroy {
 
-  editName = false
+  editFirstName = false
+  editLastName = false
   editForm: any
   formPassword: any
   editEmail = false
@@ -33,7 +33,8 @@ export class EditProfileComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit(): void {
     this.editForm = new FormGroup({
-      name: new FormControl(this.us.currentUser.first_name + ' ' + this.us.currentUser.last_name),
+      firstName: new FormControl(this.us.currentUser.first_name),
+      lastName: new FormControl(this.us.currentUser.last_name),
       email: new FormControl(this.us.currentUser.email)
     });
     this.formPassword = new FormGroup({
@@ -63,7 +64,7 @@ export class EditProfileComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
   toggleEditName() {
-    this.editName = !this.editName
+    this.editFirstName = !this.editFirstName
   }
 
 
@@ -77,8 +78,8 @@ export class EditProfileComponent implements OnInit, AfterViewInit, OnDestroy {
     if (!this.editPassword) {
       body = {
         id: this.us.currentUser.id,
-        first_name: this.editForm.get('name').value.split(' ')[0],
-        last_name: this.editForm.get('name').value.split(' ')[1],
+        first_name: this.editForm.get('firstName').value,
+        last_name: this.editForm.get('lastName').value,
         email: this.editForm.get('email').value,
       }
     } else {

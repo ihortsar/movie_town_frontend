@@ -1,12 +1,11 @@
 import { Inject, Injectable } from '@angular/core';
 import { BehaviorSubject, lastValueFrom } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../environments/environment.prod';
+import { environment } from '../../../environments/environment';
 import { IUser } from '../../interfaces/user.interface';
 import { Movie } from '../../interfaces/movie.interface';
 import { Video } from '../../interfaces/video.interface';
 import { DOCUMENT } from '@angular/common';
-import { CsrfService } from '../csrf.service';
 
 @Injectable({
   providedIn: 'root',
@@ -27,7 +26,7 @@ export class UserService {
   usersVideos: Video[] = []
   usersVideosSubject
 
-  constructor(@Inject(DOCUMENT) private document: Document, private http: HttpClient, public ts: CsrfService) {
+  constructor(@Inject(DOCUMENT) private document: Document, private http: HttpClient) {
     this.currentUserSubject = new BehaviorSubject(JSON.parse(localStorage?.getItem('currentUser') || '{}')),
       this.usersVideosSubject = new BehaviorSubject<Video[]>([])
 
@@ -41,15 +40,8 @@ export class UserService {
       email,
       password
     }
-    const csrftoken = this.ts.getCookie('csrftoken')
-    console.log('actual token', csrftoken);
-    
-    const headers = {
-      'X-CSRFToken': csrftoken || '',
-    };
-    console.log(headers);
 
-    let response = await lastValueFrom(this.http.post(url, body, { headers }))
+    let response = await lastValueFrom(this.http.post(url, body))
     return response
   }
 

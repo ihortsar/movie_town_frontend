@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { UserService } from '../../../services/user/user.service';
 import { lastValueFrom } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { environment } from '../../../../environments/environment.prod';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-users-videos',
@@ -26,15 +26,14 @@ export class UsersVideosComponent {
     let options = this.createDataToSend()
     if (this.description !== '') {
       try {
-
+        this.fileToUpload = null
         await lastValueFrom(this.http.post(url, options.formData, {
           headers: new HttpHeaders({
             'Authorization': options.headers['Authorization']
           })
         }));
-        await this.us.updateUsersVideos()
         this.resetAddVideoButton()
-
+        await this.us.updateUsersVideos()
       } catch (error) {
         console.error(error);
       }

@@ -18,7 +18,7 @@
             <div class="input-div">
                 <mat-form-field class="example-full-width">
                     <mat-label>Your birthdate</mat-label>
-                    <input formControlName="birthday" matInput [matDatepicker]="picker">
+                    <input formControlName="birthday"  [max]="maxDate" matInput [matDatepicker]="picker">
                     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>

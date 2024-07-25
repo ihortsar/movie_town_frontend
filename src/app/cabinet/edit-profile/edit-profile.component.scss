@@ -23,6 +23,7 @@ form {
     width: 100%;
 
     .name {
+        padding: 0 20px;
         display: flex;
         align-items: center;
         font-size: 18px;
@@ -41,6 +42,7 @@ form {
         font-size: 12px;
         margin-top: 8px;
         cursor: pointer;
+        margin-left: 20px;
     }
 
 }

@@ -74,9 +74,9 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   openDialog(movie: {}) {
     const dialogRef = this.dialog.open(MovieCardComponent, {
-      width: '40%',
       height: 'inherit',
-      data: movie
+      data: movie,
+      panelClass: 'custom-dialog'
     });
 
   }

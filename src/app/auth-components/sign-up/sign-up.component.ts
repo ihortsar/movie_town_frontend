@@ -14,7 +14,7 @@ import { DatePipe, NgFor, NgIf, NgStyle } from '@angular/common';
 import { User } from '../../classes/user.class';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { lastValueFrom } from 'rxjs';
-import { environment } from '../../../environments/environment.prod';
+import { environment } from '../../../environments/environment';
 import { Router } from '@angular/router';
 
 
@@ -27,8 +27,14 @@ import { Router } from '@angular/router';
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.scss',]
 })
-export class SignUpComponent {
+export class SignUpComponent implements OnInit {
+  maxDate: Date | undefined
   constructor(private http: HttpClient, private router: Router) { }
+
+
+  ngOnInit() {
+    this.maxDate = new Date();
+  }
 
   /**
   * FormGroup for user signup form.

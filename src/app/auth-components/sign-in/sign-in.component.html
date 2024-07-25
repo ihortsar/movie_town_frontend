@@ -10,12 +10,9 @@
                     <mat-label>Email</mat-label>
 
                     <input matInput [formControl]="emailFormControl" type="email">
-                    @if (emailFormControl.hasError('email') && !emailFormControl.hasError('required')) {
-                    <mat-error>Please enter a valid email address</mat-error>
-                    }
                     @if (emailFormControl.hasError('required')) {
-                    <mat-error>Email is required</mat-error>
-                    }
+                        <mat-error>Email is required</mat-error>
+                        }
                 </mat-form-field>
             </div>
 
@@ -25,16 +22,13 @@
                     <mat-label>Password</mat-label>
 
                     <input matInput [formControl]="passwordFormControl" type="password">
-                    @if (passwordFormControl.hasError('password') && !passwordFormControl.hasError('required')) {
-                    <mat-error>Please enter your password</mat-error>
-                    }
                     @if (emailFormControl.hasError('required')) {
                     <mat-error>Password is required</mat-error>
                     }
                 </mat-form-field>
             </div>
             <button type="submit" class="accept-form">Einloggen</button>
-            <a class="forgotPasswordButton" href="http://127.0.0.1:8000/password_reset/">Password vergessen?</a>
+            <a class="forgotPasswordButton" href="https://movie-town.ihor-tsarkov.com/password_reset/">Password vergessen?</a>
 
             <div class="signUpDiv">
                 <p>Neu bei Movie Town?</p><a [routerLink]="['/signup']">Jetzt registrieren</a>

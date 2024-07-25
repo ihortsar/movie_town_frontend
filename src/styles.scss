@@ -129,8 +129,8 @@ body {
     background: #555;
 }
 
-.dialog-custom {
-    width: 40% !important;
+.custom-dialog {
+    width: 40%;
     overflow-y: auto;
 }
 
@@ -140,8 +140,8 @@ body {
         width: 100%;
     }
 
-    .dialog-custom {
-        width: 70% !important;
+    .custom-dialog {
+        width: 80% !important;
 
     }
 }
