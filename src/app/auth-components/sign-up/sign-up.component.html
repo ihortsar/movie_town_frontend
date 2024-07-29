@@ -18,7 +18,7 @@
             <div class="input-div">
                 <mat-form-field class="example-full-width">
                     <mat-label>Your birthdate</mat-label>
-                    <input formControlName="birthday"  [max]="maxDate" matInput [matDatepicker]="picker">
+                    <input formControlName="birthday" [max]="maxDate" matInput [matDatepicker]="picker">
                     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
@@ -26,6 +26,11 @@
 
 
             <div class="input-div">
+                <div class="errors" *ngIf="passErrors.length > 0">
+                    <span *ngFor="let er of mailErrors">
+                        {{ er }}
+                    </span>
+                </div>
                 <mat-form-field class="example-full-width">
                     <input matInput formControlName="email" type="email">
                     <mat-label>email</mat-label>
@@ -33,13 +38,24 @@
             </div>
 
             <div class="input-div">
+                <div class="errors" *ngIf="passErrors.length > 0">
+                    <span *ngFor="let er of passErrors">
+                        {{ er }}
+                    </span>
+                </div>
                 <mat-form-field class="example-full-width">
                     <input matInput formControlName="password1" type="password">
+                    <mat-error *ngIf="signUpForm.get('password1')?.hasError('minlength')">
+                        Passwort muss mindestens 8 Zeichen lang sein
+                    </mat-error>
+                    <mat-error *ngIf="signUpForm.get('password1')?.hasError('pattern')">
+                        Passwort muss mindestens 1 Zahl und 1 Großbuchstabe haben
+                    </mat-error>
                     <mat-label>password</mat-label>
                 </mat-form-field>
             </div>
 
-            <div *ngIf="(signUpForm.get('password1')?.value || '').length > 7" class="input-div">
+            <div  class="input-div">
                 <mat-form-field class="example-full-width">
                     <input matInput formControlName="password2" type="password">
                     <mat-label>confirm password</mat-label>

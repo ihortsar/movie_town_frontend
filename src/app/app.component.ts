@@ -13,15 +13,31 @@ import { UserService } from './services/user/user.service';
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
-
+  imprintLinksOpen = false
+  imprint = false
+  datenschutz = false
 
   title = 'movie_town_frontend';
   constructor(public router: Router, public us: UserService) {
   }
- 
+
 
   handleSignoutRequest() {
     this.us.signoutRequest = !this.us.signoutRequest
   }
+
+
+  toggleImprintLinks() {
+    this.imprintLinksOpen = !this.imprintLinksOpen
+  }
+
+  closeLinks() {
+    this.imprintLinksOpen = false
+  }
+
+  toggleDatenschutz() {
+    this.datenschutz = !this.datenschutz
+  }
+
 
 }

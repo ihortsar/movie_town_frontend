@@ -1,9 +1,15 @@
 <header>
   <img class="logo" src="../assets/img/logo.png">
   <div class="myCabinet">
-    <img class="userIcon" src="../assets/img/user.png">
-    <span *ngIf="router.url=='/home'||router.url=='/'" routerLink="my-area/">My area</span>
-    <span *ngIf="router.url=='/my-area'" routerLink="home/">Home</span>
+    <div class="leagalLinks">
+      <img class="userIcon" (click)="toggleImprintLinks()" src="../assets/img/user.png">
+      <div *ngIf="imprintLinksOpen" class="links">
+        <span (click)="closeLinks()" routerLink="imprint">Imprint</span>
+        <span (click)="closeLinks()" routerLink="date-protect">Datenschutz</span>
+      </div>
+    </div>
+    <span class="linksSpans" *ngIf="router.url!='/home'" routerLink="home/">Home</span>
+    <span class="linksSpans" *ngIf="router.url!='/my-area'" routerLink="my-area/">My area</span>
     <img class="signout" (click)="handleSignoutRequest()" src="../assets/img/logout.png">
     <app-sign-out class="signoutComp" *ngIf="us.signoutRequest"></app-sign-out>
   </div>

@@ -48,13 +48,13 @@ export class HomeComponent implements OnInit, OnDestroy {
         Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjN2M2NDkwMTFiYWU2NWRiZTQxYjk3ZTZlNDMzNmVjMiIsInN1YiI6IjY2MTRmYWE5ZTEwZjQ2MDFhNDNhYzIwNyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.slr3WJODoHJ6unkd7Kr6ajNlpH4ZC8wlTkeUvQTBn84'
       }
     }
-
     let response = await fetch(`https://api.themoviedb.org/3/genre/movie/list?language=en`, options)
     let responseAsJson = await response.json()
     for (let i = 0; i < responseAsJson.genres.length; i++) {
       await this.fetchMoviesByGenre(responseAsJson.genres[i], options)
     }
   }
+
 
   async fetchMoviesByGenre(genre: Genre, options: any) {
     try {
@@ -78,16 +78,14 @@ export class HomeComponent implements OnInit, OnDestroy {
       data: movie,
       panelClass: 'custom-dialog'
     });
-
   }
+
 
   filterMovies() {
     this.filteredMovies = [];
-
     if (this.result.length > 1) {
       const searchTerm = this.result.toLowerCase();
       const addedMovieIds = new Set<number>();
-
       this.genres.forEach((genre: Genre) => {
         genre.movies.forEach((movie: Movie) => {
           if (movie.title.toLowerCase().includes(searchTerm) && !addedMovieIds.has(movie.id)) {

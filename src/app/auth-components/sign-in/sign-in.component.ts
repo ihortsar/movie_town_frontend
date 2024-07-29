@@ -27,23 +27,26 @@ export class SignInComponent implements OnInit, OnDestroy {
   constructor(private http: HttpClient, private router: Router, public us: UserService) {
   }
 
+  /**
+  * Angular lifecycle hook that is called after data-bound properties are initialized.
+  * Subscribes to the current user observable.
+  */
   ngOnInit(): void {
     this.userSubscription = this.us.currentUserSubject.subscribe(data => {
       if (data) {
         this.us.updateCurrentUser(data)
       }
     });
-
   }
-
-
 
   emailFormControl = new FormControl('', [Validators.required, Validators.email]);
   passwordFormControl = new FormControl('', Validators.required);
 
 
-
-
+  /**
+   * Handles the sign-in process by authenticating the user and updating their data.
+   * Navigates to the home page upon successful sign-in.
+   */
   async signin() {
     const email = this.emailFormControl.value as string
     const password = this.passwordFormControl.value as string
@@ -54,14 +57,13 @@ export class SignInComponent implements OnInit, OnDestroy {
       await this.setToken()
       this.router.navigate(['/home']);
     } catch (er: any) {
-        this.invalidData = er?.error?.error || 'An unknown error occurred';
+      this.invalidData = er?.error?.error || 'An unknown error occurred';
     }
   }
 
-
-
-
-
+  /**
+     * Sets the authentication token in local storage.
+     */
   async setToken() {
     const email = this.emailFormControl.value as string
     const password = this.passwordFormControl.value as string
@@ -70,6 +72,10 @@ export class SignInComponent implements OnInit, OnDestroy {
   }
 
 
+  /**
+   * Sends a password reset request email to the provided address.
+   * @param f - NgForm object containing the email for password reset.
+   */
   sendMail(f: NgForm) {
     let url = environment.baseUrl + '/reset-password/';
     this.http.post(url, { email: f.value })
@@ -86,6 +92,10 @@ export class SignInComponent implements OnInit, OnDestroy {
   }
 
 
+  /**
+  * Angular lifecycle hook that is called when the component is destroyed.
+  * Unsubscribes from the user subscription to prevent memory leaks.
+  */
   ngOnDestroy(): void {
     this.userSubscription.unsubscribe()
   }

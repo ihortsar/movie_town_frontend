@@ -18,7 +18,7 @@ export class UsersMoviesComponent {
 
   openDialog(movie: {}) {
     const dialogRef = this.dialog.open(MovieCardComponent, {
-      panelClass: 'dialog-custom',
+      panelClass: 'custom-dialog',
       data: movie
     });
 

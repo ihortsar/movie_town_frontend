@@ -29,18 +29,15 @@ export class UserService {
   constructor(@Inject(DOCUMENT) private document: Document, private http: HttpClient) {
     this.currentUserSubject = new BehaviorSubject(JSON.parse(localStorage?.getItem('currentUser') || '{}')),
       this.usersVideosSubject = new BehaviorSubject<Video[]>([])
-
-
   }
+  
 
   async getLoginResponse(email: string, password: string) {
-
     let url = environment.baseUrl + '/login/'
     let body = {
       email,
       password
     }
-
     let response = await lastValueFrom(this.http.post(url, body))
     return response
   }
@@ -59,9 +56,6 @@ export class UserService {
     const videosUrl = environment.baseUrl + `/video/${this.currentUser.id}`
     try {
       const updatedVideos = await lastValueFrom(this.http.get<Video[]>(videosUrl, {
-      /*   headers: {
-          'Authorization': `token ${localStorage.getItem('token')}`,
-        } */
       }))
       if (updatedVideos && updatedVideos.length > 0) {
         this.usersVideosSubject.next(updatedVideos)

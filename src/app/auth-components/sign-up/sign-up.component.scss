@@ -5,6 +5,14 @@
 button {
     color: white;
 }
+
 .example-full-width {
     width: 100%;
+}
+
+.errors {
+    span {
+        color: red;
+        font-size: 13px;
+    }
 }

@@ -2,6 +2,14 @@
     display: flex;
 }
 
+.signinForm {
+    gap: 0 !important;
+
+    h1 {
+        margin-top: 70px !important;
+    }
+}
+
 p {
     color: #aaa;
     margin-right: 8px;

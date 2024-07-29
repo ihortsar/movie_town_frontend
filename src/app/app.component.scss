@@ -37,10 +37,24 @@ header {
         .userIcon {
             height: 30px;
             margin: 0 10px 0 0;
+            cursor: pointer;
+            z-index: 200000;
         }
     }
 }
 
+.leagalLinks {
+    position: relative;
+
+    .links {
+        position: absolute;
+        top: 36px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+}
 
 
 .container {
@@ -98,6 +112,15 @@ header {
 
         span {
             margin-right: 10px;
+        }
+    }
+}
+
+
+@media(max-width:350px) {
+    header {
+        .linksSpans {
+            font-size: 12px;
         }
     }
 }

@@ -1,6 +1,6 @@
 <div class="containerWithMoviesBackground">
     <div class="shadow-container">
-        <form *ngIf="!forgotPassword" (submit)="signin()">
+        <form class="signinForm" *ngIf="!forgotPassword" (submit)="signin()">
 
             <h1>Einloggen</h1>
             <span style="color: red;" *ngIf="invalidData">{{invalidData}}</span>
